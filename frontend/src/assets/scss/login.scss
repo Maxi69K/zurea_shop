@@ -1,0 +1,20 @@
+.page-title {
+  border: 1px solid #f2f2f2;
+  font-size: 20px;
+  padding: 15px;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+
+  .login-form {
+    width: 90%;
+  }
+}

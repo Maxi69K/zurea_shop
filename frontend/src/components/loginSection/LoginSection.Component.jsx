@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { loginUser } from '../../services/auth.service';
 
 const LoginSectionComponent = () => {
   const [signInObj, setSignInObj] = useState({
@@ -6,6 +7,7 @@ const LoginSectionComponent = () => {
     password: '',
   });
   const [validationMsg, setValidationMsg] = useState('');
+  const [errMsg, setErrMsg] = useState('');
 
   const handleSignInObj = (e) => {
     let inputValue = e.target.value;
@@ -17,13 +19,23 @@ const LoginSectionComponent = () => {
 
   const onLoginSubmit = (e) => {
     e.preventDefault();
-    console.log(signInObj);
     if (!signInObj.email || !signInObj.password) {
       return setValidationMsg(
         `The ${!signInObj.email ? 'email' : 'password'} field is required`
       );
     }
+
     // todo: call API
+    //console.log(signInObj);
+    loginUser(signInObj)
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+        if (err) {
+          setErrMsg('Something went wrong. Please try again.');
+        }
+      })
+      .finally(() => console.log('Bilo sta'));
   };
 
   return (
@@ -40,7 +52,7 @@ const LoginSectionComponent = () => {
                 placeholder="name@example.com"
                 name="email"
                 maxLength="60"
-                required
+                //required
                 onChange={(e) => handleSignInObj(e)}
                 //onBlur={(e) => handleSignInObj(e)}
               />
@@ -54,7 +66,7 @@ const LoginSectionComponent = () => {
                 placeholder="Password"
                 name="password"
                 maxLength="60"
-                required
+                //required
                 onChange={(e) => handleSignInObj(e)}
                 //onBlur={(e) => handleSignInObj(e)}
               />
@@ -68,9 +80,15 @@ const LoginSectionComponent = () => {
               Sign in
             </button>
           </form>
+
           {validationMsg ? (
             <p className="text-danger my-2 text-center">{validationMsg}</p>
           ) : null}
+
+          {errMsg ? (
+            <p className="text-danger my-2 text-center">{errMsg}</p>
+          ) : null}
+
         </div>
       </div>
     </>

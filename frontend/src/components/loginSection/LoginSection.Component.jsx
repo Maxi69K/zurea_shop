@@ -28,14 +28,14 @@ const LoginSectionComponent = () => {
     // todo: call API
     //console.log(signInObj);
     loginUser(signInObj)
-      .then((res) => console.log(res))
+      .then((res) => console.log('response...', res))
       .catch((err) => {
-        console.log(err);
+        console.log('error...', err);
         if (err) {
           setErrMsg('Something went wrong. Please try again.');
         }
       })
-      .finally(() => console.log('Bilo sta'));
+      .finally(() => console.log('Anything'));
   };
 
   return (

@@ -1,11 +1,13 @@
 const express = require('express');
+const cors = require('cors');
+const authRoute = require('./routes/auth.route');
 const app = express();
 const portNumber = 5050;
 
-app.post('/login', (req, res) => {
-    console.log(req.body);
-    res.send('test');
-})
+// Communicate with external server
+app.use(cors()); // Middleware
+app.use(express.json());
+app.use('/api/auth', authRoute)
 
 app.listen(portNumber, err => {
     if (err) {

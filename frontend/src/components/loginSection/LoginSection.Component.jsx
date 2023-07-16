@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { loginUser } from '../../services/auth.service';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const LoginSectionComponent = () => {
   const [signInObj, setSignInObj] = useState({
@@ -8,11 +9,16 @@ const LoginSectionComponent = () => {
   });
   const [validationMsg, setValidationMsg] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [loggedUser, setLoggedUser] = useLocalStorage('zureaUser');
+
+  useEffect(() => {
+    console.log(loggedUser);
+  }, []);
 
   const handleSignInObj = (e) => {
     let inputValue = e.target.value;
     let inputName = e.target.name;
-    let copySignInObj = signInObj;
+    let copySignInObj = {...signInObj};
     copySignInObj[inputName] = inputValue;
     setSignInObj(copySignInObj);
   };
@@ -28,7 +34,10 @@ const LoginSectionComponent = () => {
     // todo: call API
     //console.log(signInObj);
     loginUser(signInObj)
-      .then((res) => console.log('response...', res))
+      .then((res) => {
+        console.log('response...', res);
+        setLoggedUser(signInObj); // Set Local Storage
+      })
       .catch((err) => {
         console.log('error...', err);
         if (err) {
@@ -88,7 +97,6 @@ const LoginSectionComponent = () => {
           {errMsg ? (
             <p className="text-danger my-2 text-center">{errMsg}</p>
           ) : null}
-
         </div>
       </div>
     </>

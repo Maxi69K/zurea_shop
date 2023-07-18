@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import { loginUser } from '../../services/auth.service';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loginUser, setUserToLocalStorage } from '../../services/auth.service';
+//import useLocalStorage from '../../hooks/useLocalStorage';
 
 const LoginSectionComponent = () => {
   const [signInObj, setSignInObj] = useState({
@@ -9,16 +10,18 @@ const LoginSectionComponent = () => {
   });
   const [validationMsg, setValidationMsg] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [loggedUser, setLoggedUser] = useLocalStorage('zureaUser');
+  //const [loggedUser, setLoggedUser] = useLocalStorage('zureaUser'); // Set Local Storage from ../../hooks/useLocalStorage
+  
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(loggedUser);
-  }, []);
+  // useEffect(() => {
+  //   console.log(loggedUser);
+  // }, []);
 
   const handleSignInObj = (e) => {
     let inputValue = e.target.value;
     let inputName = e.target.name;
-    let copySignInObj = {...signInObj};
+    let copySignInObj = { ...signInObj };
     copySignInObj[inputName] = inputValue;
     setSignInObj(copySignInObj);
   };
@@ -36,7 +39,13 @@ const LoginSectionComponent = () => {
     loginUser(signInObj)
       .then((res) => {
         console.log('response...', res);
-        setLoggedUser(signInObj); // Set Local Storage
+        if (res.status === 215) {
+          setErrMsg(res.data);
+        } else {
+          setUserToLocalStorage(res.data);
+          //setLoggedUser(signInObj); // Set Local Storage from ../../hooks/useLocalStorage
+          navigate('/');
+        }
       })
       .catch((err) => {
         console.log('error...', err);

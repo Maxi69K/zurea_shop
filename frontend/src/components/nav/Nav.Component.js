@@ -5,7 +5,7 @@ const NavComponent = () => {
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
-          Navbar
+          Zurea Shop
         </a>
         <button
           className="navbar-toggler"
@@ -26,13 +26,13 @@ const NavComponent = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/">
-                Features
+              <a className="nav-link" href="/register">
+                Register
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/">
-                Pricing
+              <a className="nav-link" href="/login">
+                Login
               </a>
             </li>
           </ul>

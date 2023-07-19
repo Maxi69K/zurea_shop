@@ -5,6 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 50px;
+  user-select: none;
+  scroll-behavior: smooth;
 }
 
 code {
@@ -13,3 +18,5 @@ code {
 }
 
 @import 'assets/scss/login.scss';
+@import 'assets/scss/footer.scss';
+@import 'assets/scss/error.scss';

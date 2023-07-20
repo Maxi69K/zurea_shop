@@ -6,10 +6,10 @@ const UserPageComponent = () => {
     const params = useParams()
 
     useEffect(() => {
-        getUser(params.id).then((res) => {
-            console.log(res.data);
-        })
-    }, [])    
+      getUser(params.id).then((res) => {
+        //console.log(res.data);
+      });
+    }, [params.id]);    
 
   return (
     <div>UserPageComponent</div>

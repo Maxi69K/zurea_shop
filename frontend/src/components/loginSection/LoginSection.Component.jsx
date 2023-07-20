@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { loginUser, setUserToLocalStorage } from '../../services/auth.service';
+import { saveUser } from '../../redux/user.slicer';
 //import useLocalStorage from '../../hooks/useLocalStorage';
 
 const LoginSectionComponent = () => {
@@ -11,8 +13,10 @@ const LoginSectionComponent = () => {
   const [validationMsg, setValidationMsg] = useState('');
   const [errMsg, setErrMsg] = useState('');
   //const [loggedUser, setLoggedUser] = useLocalStorage('zureaUser'); // Set Local Storage from ../../hooks/useLocalStorage
-  
+
   const navigate = useNavigate();
+  // hook from redux
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   console.log(loggedUser);
@@ -38,12 +42,13 @@ const LoginSectionComponent = () => {
     //console.log(signInObj);
     loginUser(signInObj)
       .then((res) => {
-        console.log('response...', res);
+        //console.log('response...', res);
         if (res.status === 215) {
           setErrMsg(res.data);
         } else {
           setUserToLocalStorage(res.data);
           //setLoggedUser(signInObj); // Set Local Storage from ../../hooks/useLocalStorage
+          dispatch(saveUser(res.data));
           navigate('/');
         }
       })
@@ -53,8 +58,22 @@ const LoginSectionComponent = () => {
           setErrMsg('Something went wrong. Please try again.');
         }
       })
-      .finally(() => console.log('Anything'));
+      .finally(() => {
+        //console.log('Anything')
+      });
   };
+
+  const showHidePassword = () => {
+    const passwordType = document.querySelector('input[name="password"]');
+    const btnShowHide = document.getElementById('button-addon2');
+    if (passwordType.type === 'password') {
+      passwordType.type = 'text';
+      btnShowHide.innerHTML = 'Hide';
+    } else {
+      passwordType.type = 'password';
+      btnShowHide.innerHTML = 'Show';
+    }
+  }
 
   return (
     <>
@@ -76,19 +95,25 @@ const LoginSectionComponent = () => {
               />
               <label htmlFor="floatingInput">Email address</label>
             </div>
-            <div className="form-floating">
+            <div className="input-group mb-3 pass">
               <input
                 type="password"
                 className="form-control"
-                id="floatingPassword"
                 placeholder="Password"
                 name="password"
-                maxLength="60"
-                //required
+                aria-label="Password"
+                aria-describedby="button-addon2"
                 onChange={(e) => handleSignInObj(e)}
                 //onBlur={(e) => handleSignInObj(e)}
               />
-              <label htmlFor="floatingPassword">Password</label>
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2"
+                onClick={showHidePassword}
+              >
+                Show
+              </button>
             </div>
             <button
               type="submit"

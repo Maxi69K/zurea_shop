@@ -1,11 +1,28 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import NavBarLinkComponent from './components/NavBarLink.Component';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUserFromLocalStorage } from '../../services/auth.service';
+import { removeUser } from '../../redux/user.slicer';
 
 const NavComponent = () => {
+  // data from redux store
+  const userStore = useSelector((state) => state.userStore.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    //console.log(userStore);
+  }, [userStore]);
+
+  const onLogOut = () => {
+    removeUserFromLocalStorage();
+    dispatch(removeUser());
+  }
+
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary mx-3 mb-3 py-3">
       <div className="container-fluid">
-        <Link to='/' className="navbar-brand">
+        <Link to="/" className="navbar-brand" id="logo">
           Zurea Shop
         </Link>
         <button
@@ -19,22 +36,36 @@ const NavComponent = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse align-items-center" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/">
-                Home
-              </NavLink>
+              <NavBarLinkComponent btnTitle="Home" redirect="/" />
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/register">
-                Register
-              </NavLink>
+              <NavBarLinkComponent btnTitle="Shoes" redirect="/shoes" />
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                Login
-              </NavLink>
+              <NavBarLinkComponent btnTitle="Watch" redirect="/watch" />
+            </li>
+            <li className="nav-item">
+              <NavBarLinkComponent btnTitle="More" redirect="/more" />
+            </li>
+            <li className="nav-item">
+              <NavBarLinkComponent
+                btnTitle={
+                  userStore ? (
+                    <button
+                      className="btn btn-sm btn-outline-secondary"
+                      onClick={(e) => onLogOut()}
+                    >
+                      Log out
+                    </button>
+                  ) : (
+                    'Login'
+                  )
+                }
+                redirect="/login"
+              />
             </li>
           </ul>
         </div>

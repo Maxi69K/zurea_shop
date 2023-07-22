@@ -1,8 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const authRoute = require('./routes/auth.route');
 const MONGO_DB_URL = require('./config/db.Config');
+const authRoute = require('./routes/auth.route');
+const productRoute = require('./routes/product.route');
 const app = express();
 const portNumber = 5050;
 
@@ -21,7 +22,10 @@ mongoose.connect(MONGO_DB_URL)
 // Communicate with external server
 app.use(cors()); // Middleware
 app.use(express.json());
+
+// Routes
 app.use('/api/auth', authRoute)
+app.use('/api/product', productRoute);
 
 app.listen(portNumber, err => {
     if (err) {

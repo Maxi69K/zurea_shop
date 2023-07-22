@@ -1,9 +1,10 @@
 import React from 'react'
 import App from '../App';
+import ErrorPageComponent from '../pages/ErrorPage.Component';
 import HomePageComponent from '../pages/HomePage.Component';
 import LoginPageComponent from '../pages/LoginPage.Component';
-import ErrorPageComponent from '../pages/ErrorPage.Component';
 import UserPageComponent from '../pages/UserPage.Component';
+import ShopPageComponent from '../pages/ShopPage.Component';
 
 const routes = [
   {
@@ -23,6 +24,10 @@ const routes = [
         path: 'user/:id',
         element: <UserPageComponent />,
       },
+      {
+        path: 'shop',
+        element: <ShopPageComponent />,
+      }
     ],
   },
 ];

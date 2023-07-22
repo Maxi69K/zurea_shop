@@ -7,7 +7,7 @@ const initialState = {
 const userSlicer = createSlice({
   name: 'user',
   // exported reducer
-  initialState,
+  initialState: initialState,
   // define all actions
   reducers: {
     saveUser(state, data) {

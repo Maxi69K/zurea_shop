@@ -3,7 +3,7 @@ const Mongoose = require('mongoose');
 // todo: add firstName, lastName, address, city, gender, isAdmin ...
 const userSchema = new Mongoose.Schema({
     email: {
-        type: String,
+        type: String
     },
     password: {
         type: String

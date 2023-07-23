@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getAllUser } from '../services/auth.service';
+import TopTwoProductsComponent from '../components/topTwoProducts/TopTwoProducts.Component';
 
 const HomePageComponent = () => {
 
@@ -20,6 +21,8 @@ const HomePageComponent = () => {
           return <li key={user._id}><Link to={`/user/${user._id}`}>{user.username} - {user.email}</Link></li>
         })}
       </ul>
+      <h2>Top products</h2>
+      <TopTwoProductsComponent />
     </>
   );
 }

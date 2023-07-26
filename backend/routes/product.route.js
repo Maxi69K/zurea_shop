@@ -55,4 +55,22 @@ productRoute.get('/topTwo', (req, res) => {
     })
 })
 
+productRoute.post('/search', (req, res) => {
+  //console.log(req.body);
+  // $regex= find any title with searchParams
+  // $options = 'i' case sensitive
+  ProductModel.find({ title: { $regex: req.body.searchParams, $options: 'i' } })
+    .then((data) => {
+      //console.log(data);
+      if (!data || !data.length) {
+        return res.status(209).send('no results');
+      }
+      res.send(data);
+    })
+    .catch((err) => {
+      //console.log(err);
+      res.status(415).send('error on search.');
+    });
+});
+
 module.exports = productRoute;

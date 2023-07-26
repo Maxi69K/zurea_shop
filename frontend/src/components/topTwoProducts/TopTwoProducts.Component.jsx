@@ -13,9 +13,9 @@ const TopTwoProductsComponent = () => {
     }, []);
 
     const renderProducts = () => {
-        return products.map((product, index) => {
+        return products.map((product) => {
             return (
-              <div key={product._id + '_' + index} className="col-md-6">
+              <div key={product._id} className="col-md-6">
                 <div className="card text-center p-2 ">
                   <img
                     src={product.imgUrl}

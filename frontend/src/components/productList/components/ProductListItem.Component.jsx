@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ProductListItemComponent = ({item, index}) => {
+const ProductListItemComponent = ({item}) => {
   return (
-    <div key={item._id + '_' + index} className="card text-center p-2 ">
+    <div className="card text-center p-2 ">
       <img
         src={item.imgUrl}
         className="card-img-top img-thumbnail img-fluid w-75 m-auto "

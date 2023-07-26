@@ -27,7 +27,11 @@ const routes = [
       {
         path: 'shop',
         element: <ShopPageComponent />,
-      }
+      }, 
+      {
+        path: 'shop/:searchParams',
+        element: <ShopPageComponent />, // need for url params (is not required for the query params)
+      },
     ],
   },
 ];

@@ -4,6 +4,7 @@ import NavBarLinkComponent from './components/NavBarLink.Component';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUserFromLocalStorage } from '../../services/auth.service';
 import { removeUser } from '../../redux/user.slicer';
+import NavBarSearchComponent from './components/NavBarSearch.Component';
 
 const NavComponent = () => {
   // data from redux store
@@ -36,7 +37,10 @@ const NavComponent = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse align-items-center" id="navbarNav">
+        <div
+          className="collapse navbar-collapse align-items-center"
+          id="navbarNav"
+        >
           <ul className="navbar-nav">
             <li className="nav-item">
               <NavBarLinkComponent btnTitle="Home" redirect="/" />
@@ -68,6 +72,7 @@ const NavComponent = () => {
               />
             </li>
           </ul>
+          <NavBarSearchComponent />
         </div>
       </div>
     </nav>

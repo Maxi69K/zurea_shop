@@ -6,17 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import routes from './routes/routes';
-import { configureStore } from '@reduxjs/toolkit';
-import userSlicer from './redux/user.slicer';
 import { Provider } from 'react-redux';
+import storeRedux from './redux/storeRedux';
 
 const router = createBrowserRouter(routes);
 
-const store = configureStore({
-  reducer: {
-    userStore: userSlicer,
-  }
-});
+const store = storeRedux;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

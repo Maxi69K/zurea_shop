@@ -5,6 +5,7 @@ import HomePageComponent from '../pages/HomePage.Component';
 import LoginPageComponent from '../pages/LoginPage.Component';
 import UserPageComponent from '../pages/UserPage.Component';
 import ShopPageComponent from '../pages/ShopPage.Component';
+import ContactPageComponent from '../pages/ContactPage.Component';
 
 const routes = [
   {
@@ -17,6 +18,10 @@ const routes = [
         element: <HomePageComponent />,
       },
       {
+        path: 'contact',
+        element: <ContactPageComponent />,
+      },
+      {
         path: 'login',
         element: <LoginPageComponent />,
       },
@@ -27,7 +32,7 @@ const routes = [
       {
         path: 'shop',
         element: <ShopPageComponent />,
-      }, 
+      },
       {
         path: 'shop/:searchParams',
         element: <ShopPageComponent />, // need for url params (is not required for the query params)

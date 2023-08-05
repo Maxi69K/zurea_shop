@@ -52,7 +52,7 @@ const NavComponent = () => {
               <NavBarLinkComponent btnTitle="Watch" redirect="/watch" />
             </li>
             <li className="nav-item">
-              <NavBarLinkComponent btnTitle="More" redirect="/more" />
+              <NavBarLinkComponent btnTitle="Contact" redirect="/contact" />
             </li>
             <li className="nav-item">
               <NavBarLinkComponent

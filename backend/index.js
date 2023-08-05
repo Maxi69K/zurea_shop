@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const MONGO_DB_URL = require('./config/db.Config');
 const authRoute = require('./routes/auth.route');
 const productRoute = require('./routes/product.route');
+const mailRoute = require('./routes/mail.route');
 const app = express();
 const portNumber = 5050;
 
@@ -22,10 +23,12 @@ mongoose.connect(MONGO_DB_URL)
 // Communicate with external server
 app.use(cors()); // Middleware
 app.use(express.json());
+app.use(express.static(__dirname + '/public')); // for attachment
 
 // Routes
 app.use('/api/auth', authRoute)
 app.use('/api/product', productRoute);
+app.use('/api/mail', mailRoute);
 
 app.listen(portNumber, err => {
     if (err) {

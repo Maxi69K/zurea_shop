@@ -4,7 +4,7 @@ const ProductListItemComponent = ({item}) => {
   return (
     <div className="card text-center p-2 ">
       <img
-        src={item.imgUrl}
+        src={item.imgUrl || 'https://source.unsplash.com/hyGXlmNeK-I'}
         className="card-img-top img-thumbnail img-fluid w-75 m-auto "
         alt={item.title}
       />

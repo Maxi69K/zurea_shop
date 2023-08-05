@@ -6,6 +6,7 @@ import LoginPageComponent from '../pages/LoginPage.Component';
 import UserPageComponent from '../pages/UserPage.Component';
 import ShopPageComponent from '../pages/ShopPage.Component';
 import ContactPageComponent from '../pages/ContactPage.Component';
+import ProductCreatePageComponent from '../pages/ProductCreatePage.Component';
 
 const routes = [
   {
@@ -36,6 +37,10 @@ const routes = [
       {
         path: 'shop/:searchParams',
         element: <ShopPageComponent />, // need for url params (is not required for the query params)
+      },
+      {
+        path: '/product/create',
+        element: <ProductCreatePageComponent />,
       },
     ],
   },

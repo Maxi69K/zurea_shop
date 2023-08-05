@@ -54,6 +54,10 @@ const NavComponent = () => {
             <li className="nav-item">
               <NavBarLinkComponent btnTitle="Contact" redirect="/contact" />
             </li>
+            {userStore ? 
+            <li className="nav-item">
+              <NavBarLinkComponent btnTitle="Create" redirect="/product/create" />
+            </li> : null}
             <li className="nav-item">
               <NavBarLinkComponent
                 btnTitle={

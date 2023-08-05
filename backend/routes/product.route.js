@@ -1,15 +1,16 @@
 const express = require('express');
 const ProductModel = require('../models/product.model');
+const { createProductValidationMdw } = require('../validation/productValidation');
 const productRoute = express.Router();
 
 productRoute.get('/get-all', (req, res) => {
   ProductModel.find({})
-    .then(data => res.send(data))
-    .catch(err => res.status(420).send('Error in DB.'));
+    .then((data) => res.send(data))
+    .catch((err) => res.status(420).send('Error in DB.'));
 });
 
 // Random Product
-productRoute.get('/random/:number', async (req, res)  => {
+productRoute.get('/random/:number', async (req, res) => {
   let count = await ProductModel.count({});
 
   //let randomProduct = Math.floor(Math.random() * count + 1);
@@ -23,7 +24,7 @@ productRoute.get('/random/:number', async (req, res)  => {
   // To display all products use projection = null;
   // throw out some value and use it projection = { price: 0 }
   // To display certain values projection = { price: 1, title: 1, description: 1, rating: 0 } itc...
-  let projection = {title: 1, description: 1, price: 1};
+  let projection = { title: 1, description: 1, price: 1 };
 
   ProductModel.find({}, projection, query)
     .then((data) => {
@@ -34,11 +35,10 @@ productRoute.get('/random/:number', async (req, res)  => {
       //console.log(err);
       res.status(420).send('Error in DB.');
     });
-})
+});
 
 // Top two product
 productRoute.get('/topTwo', (req, res) => {
-
   let query = {
     limit: 2,
     sort: { rating: -1 },
@@ -52,8 +52,8 @@ productRoute.get('/topTwo', (req, res) => {
     })
     .catch((err) => {
       res.status(415).send(err);
-    })
-})
+    });
+});
 
 productRoute.post('/search', (req, res) => {
   //console.log(req.body);
@@ -72,5 +72,26 @@ productRoute.post('/search', (req, res) => {
       res.status(415).send('error on search.');
     });
 });
+
+productRoute.post(
+  '/create',
+  (req, res, next) => {
+    let body = req.body;
+    if (!body.title || !body.description || !body.price) {
+      return res.status(431).send('Not valid form.');
+    }
+    next();
+  },
+  async (req, res) => {
+    console.log(req.body);
+    try{
+      const newProduct = await ProductModel.create(req.body);
+      newProduct.save();
+      return res.send('ok');
+    } catch (error) {
+      res.status(432).send(error);
+    }
+  }
+);
 
 module.exports = productRoute;

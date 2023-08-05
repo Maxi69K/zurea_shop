@@ -11,7 +11,7 @@ const ProductListComponent = () => {
   //const [queryParams] = useSearchParams(); // new hook for query params
 
   useEffect(() => {
-    console.log('params...', params.searchParams); // only for url params
+    //console.log('params...', params.searchParams); // only for url params
     setProductList([]);
     setErrMsg('');
     if (!params.searchParams) {

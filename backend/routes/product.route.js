@@ -94,4 +94,8 @@ productRoute.post(
   }
 );
 
+productRoute.get('/category/:id', (req, res) => {
+  
+})
+
 module.exports = productRoute;

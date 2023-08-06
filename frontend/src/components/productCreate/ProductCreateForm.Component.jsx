@@ -11,7 +11,7 @@ const ProductCreateFormComponent = () => {
 
   useEffect(() => {
     //console.log('img string--->', imgString);
-    console.log('User--->', user?._id);
+    //console.log('User--->', user?._id);
   }, [user]);
 
   const formik = useFormik({
@@ -132,7 +132,7 @@ const ProductCreateFormComponent = () => {
           />
         </div>
         <button className="btn btn-outline-primary form-control" type="submit">
-          Create
+          Add Product
         </button>
       </form>
     </div>

@@ -7,6 +7,7 @@ import UserPageComponent from '../pages/UserPage.Component';
 import ShopPageComponent from '../pages/ShopPage.Component';
 import ContactPageComponent from '../pages/ContactPage.Component';
 import ProductCreatePageComponent from '../pages/ProductCreatePage.Component';
+import UserProductPageComponent from '../pages/UserProductPage.Component';
 
 const routes = [
   {
@@ -41,6 +42,10 @@ const routes = [
       {
         path: '/product/create',
         element: <ProductCreatePageComponent />,
+      },
+      {
+        path: '/user/products',
+        element: <UserProductPageComponent />,
       },
     ],
   },

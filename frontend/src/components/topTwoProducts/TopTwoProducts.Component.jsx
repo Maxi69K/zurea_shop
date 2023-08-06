@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { GetTopTwoProducts } from '../../services/product.service';
+import { useDispatch } from 'react-redux';
+import { toggleLoader } from '../../redux/loader.slicer';
 
 const TopTwoProductsComponent = () => {
 
     const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+      dispatch(toggleLoader(true));
+
         GetTopTwoProducts()
             .then((res) => {
                 setProducts(res.data);
+                dispatch(toggleLoader(false));
             })
     }, []);
 

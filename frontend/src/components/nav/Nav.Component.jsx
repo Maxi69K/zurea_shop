@@ -54,10 +54,19 @@ const NavComponent = () => {
             <li className="nav-item">
               <NavBarLinkComponent btnTitle="Contact" redirect="/contact" />
             </li>
-            {userStore ? 
-            <li className="nav-item">
-              <NavBarLinkComponent btnTitle="Create" redirect="/product/create" />
-            </li> : null}
+            {userStore ?
+            <>
+              <li className="nav-item">
+                <NavBarLinkComponent btnTitle="Add product" redirect="/product/create" />
+              </li>
+              <li className="nav-item">
+                <NavBarLinkComponent btnTitle="My product" redirect="/user/products" />
+              </li>
+              <li className="nav-item">
+                <NavBarLinkComponent btnTitle="My profile" redirect="/user" />
+              </li>
+            </>
+            : null}
             <li className="nav-item">
               <NavBarLinkComponent
                 btnTitle={

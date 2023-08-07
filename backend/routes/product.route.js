@@ -1,7 +1,14 @@
 const express = require('express');
 const ProductModel = require('../models/product.model');
-const { createProductValidationMdw } = require('../validation/productValidation');
 const productRoute = express.Router();
+const productValidation = require('../validation/productValidation');
+
+productRoute.get('/get/:productId', productValidation.getProductValidator, (req, res) => {
+  //console.log(req.params);
+  ProductModel.findOne({_id: req.params.productId})
+    .then((products) => res.send(products))
+    .catch(err => res.status(415).send(err));
+});
 
 productRoute.get('/get-all', (req, res) => {
   ProductModel.find({})
@@ -77,7 +84,7 @@ productRoute.post(
   '/create',
   (req, res, next) => {
     let body = req.body;
-    if (!body.title || !body.description || !body.price) {
+    if (!body.title || !body.description || !body.price || !body.userId) {
       return res.status(431).send('Not valid form.');
     }
     next();
@@ -97,5 +104,23 @@ productRoute.post(
 productRoute.get('/category/:id', (req, res) => {
   
 })
+
+productRoute.put('/update', (req, res) => {
+  // console.log(req.body);
+
+  // res.send('ok');
+  const body = req.body;
+  const query = {_id: body._id}
+  ProductModel.updateOne(query, body)
+    .then((data) => {
+      //console.log(data);
+      res.send(data);
+    })
+    .catch((error) => {
+      //console.log(error);
+      return res.status(404).send('Error on update product.');
+    })
+})
+
 
 module.exports = productRoute;

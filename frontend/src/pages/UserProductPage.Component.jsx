@@ -33,7 +33,7 @@ const UserProductPageComponent = () => {
     }, []);
 
     const renderProducts = () => {
-        return products.map((item) => <ProductListItemComponent key={item._id} item={item} />);
+        return products.map((item) => <ProductListItemComponent key={item._id} item={item} isEditMode={true} />);
     }
 
   return (

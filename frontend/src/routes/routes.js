@@ -8,6 +8,7 @@ import ShopPageComponent from '../pages/ShopPage.Component';
 import ContactPageComponent from '../pages/ContactPage.Component';
 import ProductCreatePageComponent from '../pages/ProductCreatePage.Component';
 import UserProductPageComponent from '../pages/UserProductPage.Component';
+import AuthGuardComponent from '../utils/AuthGuard.Component';
 
 const routes = [
   {
@@ -29,7 +30,11 @@ const routes = [
       },
       {
         path: 'user/:id',
-        element: <UserPageComponent />,
+        element: (
+          <AuthGuardComponent>
+            <UserPageComponent />
+          </AuthGuardComponent>
+        ),
       },
       {
         path: 'shop',
@@ -41,11 +46,27 @@ const routes = [
       },
       {
         path: '/product/create',
-        element: <ProductCreatePageComponent />,
+        element: (
+          <AuthGuardComponent>
+            <ProductCreatePageComponent />
+          </AuthGuardComponent>
+        ),
+      },
+      {
+        path: '/product/:productId/edit',
+        element: (
+          <AuthGuardComponent>
+            <ProductCreatePageComponent />
+          </AuthGuardComponent>
+        ),
       },
       {
         path: '/user/products',
-        element: <UserProductPageComponent />,
+        element: (
+          <AuthGuardComponent>
+            <UserProductPageComponent />
+          </AuthGuardComponent>
+        ),
       },
     ],
   },

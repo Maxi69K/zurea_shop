@@ -1,6 +1,18 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
-const ProductListItemComponent = ({item}) => {
+const ProductListItemComponent = (props) => {
+
+  const {item, isEditMode} = props;
+  const navigate = useNavigate();
+
+  const onRedirect = () => {
+    if (isEditMode) {
+      return navigate(`/product/${item._id}/edit`);
+    }
+    // TODO: add to cart
+  }
+
   return (
     <div className="card text-center p-2 ">
       <img
@@ -19,6 +31,9 @@ const ProductListItemComponent = ({item}) => {
         </button>
         <button className="btn btn-sm btn-outline-primary m-1 mb-0">
           Price: {item.price}
+        </button>
+        <button className="btn btn-sm btn-outline-primary m-1 mb-0" onClick={()=>onRedirect()}>
+          {isEditMode ? 'Edit' : 'Add To Cart'}
         </button>
       </div>
     </div>

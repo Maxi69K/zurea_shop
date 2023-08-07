@@ -9,3 +9,5 @@ export const removeUserFromLocalStorage = () => localStorage.removeItem('zu_user
 export const getAllUser = () => axios.get('/auth/users');
 
 export const getUser = (id) => axios.get(`/auth/user/${id}`);
+
+export const isUserLoggedIn = () => localStorage.getItem('zu_user');

@@ -7,6 +7,7 @@ import useLocalStorage from './hooks/useLocalStorage';
 import { useDispatch } from 'react-redux';
 import { saveUser } from './redux/user.slicer';
 import LoaderComponent from './components/loader/Loader.Component';
+import CookieNoticeComponent from './components/CookieNotice/CookieNotice.Component';
 axios.defaults.baseURL = 'http://localhost:5050/api';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <LoaderComponent />
       <NavComponent />
       <Outlet />
+      <CookieNoticeComponent />
       <FooterComponent />
     </>
   );

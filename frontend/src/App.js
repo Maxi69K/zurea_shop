@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { saveUser } from './redux/user.slicer';
 import LoaderComponent from './components/loader/Loader.Component';
 import CookieNoticeComponent from './components/CookieNotice/CookieNotice.Component';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 axios.defaults.baseURL = 'http://localhost:5050/api';
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
 
   return isFinish && (
     <>
+      <ToastContainer />
       <LoaderComponent />
       <NavComponent />
       <Outlet />

@@ -1,6 +1,9 @@
 const express = require('express');
 const UserModel = require('../models/user.model');
 const authRoute = express.Router();
+const userValidation = require('../validation/userValidation');
+const sendMail = require('../services/mail.service');
+const mailTemplates = require('../template/mail.template');
 
 authRoute.get('/users', (req, res) => {
     UserModel.find({})
@@ -41,11 +44,13 @@ authRoute.post('/login', (req, res) => {
 
       // if user not exists in DB
       if (!data) {
-        res.status(215).send('Bad credentials.');
-      } else {
-        // user exist in DB
-        res.status(200).send(data);
+        return res.status(215).send('Bad credentials.');
       }
+      if (!data.isActive) {
+        return res.status(215).send('Not active user.')
+      }
+      // user exist in DB
+      res.status(200).send(data);
     })
     .catch((err) => {
       console.log(err);
@@ -53,9 +58,23 @@ authRoute.post('/login', (req, res) => {
     });
 });
 
-authRoute.post('/register', (req, res) => {
+authRoute.post('/register', userValidation.registerValidation, async (req, res) => {
   console.log('REGISTER api call', req.body);
-  res.send('register test');
+  try {
+    const newUser = await UserModel.create(req.body);
+  newUser.save();
+  const activationMailHtml = mailTemplates.htmlActivation(`http://localhost/3000/activate-account/${newUser?._id}`);//Edit when you host
+
+  sendMail(
+    newUser?.email,
+    'Activation Account',
+    activationMailHtml
+  )
+    .then(() => res.send('User registered.'))
+    .catch((error) => res.status(415).send(error));
+  } catch (e) {
+    res.status(416).send(`Error while creating new user: ${req.body.username}`);
+  }
 });
 
 module.exports = authRoute;

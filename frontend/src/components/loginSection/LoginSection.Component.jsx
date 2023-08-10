@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser, setUserToLocalStorage } from '../../services/auth.service';
 import { saveUser } from '../../redux/user.slicer';
+import { toast } from 'react-toastify';
 //import useLocalStorage from '../../hooks/useLocalStorage';
 
 const LoginSectionComponent = () => {
@@ -44,7 +45,7 @@ const LoginSectionComponent = () => {
       .then((res) => {
         //console.log('response...', res);
         if (res.status === 215) {
-          setErrMsg(res.data);
+          toast.error(res.data);
         } else {
           setUserToLocalStorage(res.data);
           //setLoggedUser(signInObj); // Set Local Storage from ../../hooks/useLocalStorage

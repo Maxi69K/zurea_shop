@@ -42,31 +42,47 @@ const NavComponent = () => {
           id="navbarNav"
         >
           <ul className="navbar-nav">
+            
             <li className="nav-item">
               <NavBarLinkComponent btnTitle="Home" redirect="/" />
             </li>
+
             <li className="nav-item">
               <NavBarLinkComponent btnTitle="Shop" redirect="/shop" />
             </li>
+
             <li className="nav-item">
               <NavBarLinkComponent btnTitle="Watch" redirect="/watch" />
             </li>
+
             <li className="nav-item">
               <NavBarLinkComponent btnTitle="Contact" redirect="/contact" />
             </li>
-            {userStore ?
-            <>
+
+            {userStore ? (
+              <>
+                <li className="nav-item">
+                  <NavBarLinkComponent
+                    btnTitle="Add product"
+                    redirect="/product/create"
+                  />
+                </li>
+                <li className="nav-item">
+                  <NavBarLinkComponent
+                    btnTitle="My product"
+                    redirect="/user/products"
+                  />
+                </li>
+                <li className="nav-item">
+                  <NavBarLinkComponent btnTitle="My profile" redirect="/user" />
+                </li>
+              </>
+            ) : (
               <li className="nav-item">
-                <NavBarLinkComponent btnTitle="Add product" redirect="/product/create" />
+                <NavBarLinkComponent btnTitle="Register" redirect="/register" />
               </li>
-              <li className="nav-item">
-                <NavBarLinkComponent btnTitle="My product" redirect="/user/products" />
-              </li>
-              <li className="nav-item">
-                <NavBarLinkComponent btnTitle="My profile" redirect="/user" />
-              </li>
-            </>
-            : null}
+            )}
+
             <li className="nav-item">
               <NavBarLinkComponent
                 btnTitle={
@@ -84,6 +100,7 @@ const NavComponent = () => {
                 redirect="/login"
               />
             </li>
+
           </ul>
           <NavBarSearchComponent />
         </div>

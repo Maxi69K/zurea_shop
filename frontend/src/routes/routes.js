@@ -9,6 +9,8 @@ import ContactPageComponent from '../pages/ContactPage.Component';
 import ProductCreatePageComponent from '../pages/ProductCreatePage.Component';
 import UserProductPageComponent from '../pages/UserProductPage.Component';
 import AuthGuardComponent from '../utils/AuthGuard.Component';
+import RegisterPageComponent from '../pages/RegisterPage.Component';
+import ActivationAccountPageComponent from '../pages/ActivationAccountPage.Component';
 
 const routes = [
   {
@@ -27,6 +29,14 @@ const routes = [
       {
         path: 'login',
         element: <LoginPageComponent />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPageComponent />,
+      },
+      {
+        path: 'activate-account/:userId',
+        element: <ActivationAccountPageComponent />,
       },
       {
         path: 'user/:id',

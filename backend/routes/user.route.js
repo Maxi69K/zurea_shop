@@ -31,19 +31,31 @@ UserRouter.get('/activate-account/:userId', (req, res) => {
     }
 });
 
-module.exports = UserRouter;
+UserRouter.get('/get-all', (req, res) => {
+    UserModel.find({})
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((error) => {
+        res.status(410).send(error);
+      });
+});
 
-// UserRouter.get('/activate-account/:userId', (req, res) => {
-//   let { userId } = req.params;
-//   try {
-//     UserModel.updateOne({ _id: userId }, { isActive: true }, (error, data) => {
-//       if (error) {
-//         console.log(error);
-//         return res.status(410).send('Error while activating user.');
-//       }
-//       res.send('OK');
-//     });
-//   } catch (e) {
-//     res.status(410).send('Error while activating user.');
-//   }
-// });
+UserRouter.get('/:id', (req, res) => {
+    let {id} = req.params;
+    UserModel.find({
+        _id: id
+    })
+    .then((data) => {
+        if (!data) {
+            return res.status(209).send('no user');
+        }
+        res.send(data);
+    })
+    .catch((error) => {
+        console.log(error);
+        res.status(415).send(error);
+    })
+})
+
+module.exports = UserRouter;

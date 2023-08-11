@@ -50,7 +50,7 @@ const LoginSectionComponent = () => {
           setUserToLocalStorage(res.data);
           //setLoggedUser(signInObj); // Set Local Storage from ../../hooks/useLocalStorage
           dispatch(saveUser(res.data));
-          navigate('/');
+          navigate(res.data.isAdmin ? '/dashboard' : '/');
         }
       })
       .catch((err) => {

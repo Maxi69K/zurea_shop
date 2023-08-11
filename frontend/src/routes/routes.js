@@ -11,6 +11,10 @@ import UserProductPageComponent from '../pages/UserProductPage.Component';
 import AuthGuardComponent from '../utils/AuthGuard.Component';
 import RegisterPageComponent from '../pages/RegisterPage.Component';
 import ActivationAccountPageComponent from '../pages/ActivationAccountPage.Component';
+import AdminPageComponent from '../pages/admin/AdminPage.Component';
+import UsersPageComponent from '../pages/admin/UsersPage.Component';
+import AdminGuardComponent from '../utils/AdminGuard.Component';
+import SingleUserPageComponent from '../pages/admin/SingleUserPage.Component';
 
 const routes = [
   {
@@ -78,6 +82,26 @@ const routes = [
           </AuthGuardComponent>
         ),
       },
+    ],
+  },
+  {
+    path: '/dashboard',
+    element: <AdminPageComponent />,
+    children: [
+      {
+        path: '',
+        element: (
+          <AdminGuardComponent>
+            <UsersPageComponent />
+          </AdminGuardComponent>
+        ),
+      },
+      {
+        path: 'user/:id',
+        element: <AdminGuardComponent>
+          <SingleUserPageComponent />
+        </AdminGuardComponent>
+      }
     ],
   },
 ];

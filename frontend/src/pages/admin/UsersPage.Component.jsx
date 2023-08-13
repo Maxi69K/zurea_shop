@@ -60,7 +60,7 @@ const UsersPageComponent = () => {
     if (apiGetUsersResponse.isSuccess && apiGetUsersResponse.data.data.length) {
       return apiGetUsersResponse.data.data.map((user, index) => {
         return (
-          <tr key={index} onClick={e => navigate(`/dashboard/user/${user._id}`)}>
+          <tr role="button" key={index} onClick={e => navigate(`/dashboard/user/${user._id}`)}>
             <th scope="row">{index + 1}</th>
             <td>
               {user.firstName} {user.lastName}

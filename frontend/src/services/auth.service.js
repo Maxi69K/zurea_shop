@@ -15,3 +15,5 @@ export const getUser = (id) => axios.get(`/auth/user/${id}`);
 export const isUserLoggedIn = () => localStorage.getItem('zu_user');
 
 export const isAdminUser = () => isUserLoggedIn() && JSON.parse(isUserLoggedIn())?.isAdmin; // true or false
+
+export const setTokenToLocalStorage = (token) => localStorage.setItem('zu_token', token);

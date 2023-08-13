@@ -29,21 +29,16 @@ const AdminPageComponent = () => {
                 <hr />
                 <ul className="nav nav-pills flex-column mb-auto">
                   <li className="nav-item">
-                    <a
-                      href="frontend/stc#"
+                    <Link
+                      to="users"
                       className="nav-link active"
                       aria-current="page"
                     >
                       <svg className="bi pe-none me-2" width="16" height="16">
                         <use></use>
                       </svg>
-                      <Link
-                        to="users"
-                        style={{ color: '#fff', textDecoration: 'none' }}
-                      >
-                        Users
-                      </Link>
-                    </a>
+                      Users
+                    </Link>
                   </li>
                 </ul>
                 <div className="dropdown">

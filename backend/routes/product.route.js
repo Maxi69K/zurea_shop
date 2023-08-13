@@ -2,6 +2,7 @@ const express = require('express');
 const ProductModel = require('../models/product.model');
 const productRoute = express.Router();
 const productValidation = require('../validation/productValidation');
+const verifyToken = require('../validation/tokenValidation'); // Verify Token
 
 productRoute.get('/get/:productId', productValidation.getProductValidator, (req, res) => {
   //console.log(req.params);
@@ -82,6 +83,7 @@ productRoute.post('/search', (req, res) => {
 
 productRoute.post(
   '/create',
+  verifyToken, // verifyToken middleware for TOKEN ****************************************************
   (req, res, next) => {
     let body = req.body;
     if (!body.title || !body.description || !body.price || !body.userId) {
@@ -91,7 +93,7 @@ productRoute.post(
   },
   async (req, res) => {
     console.log(req.body);
-    try{
+    try {
       const newProduct = await ProductModel.create(req.body);
       newProduct.save();
       return res.send('ok');
@@ -121,6 +123,5 @@ productRoute.put('/update', (req, res) => {
       return res.status(404).send('Error on update product.');
     })
 })
-
 
 module.exports = productRoute;

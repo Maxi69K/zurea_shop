@@ -4,6 +4,8 @@ const authRoute = express.Router();
 const userValidation = require('../validation/userValidation');
 const sendMail = require('../services/mail.service');
 const mailTemplates = require('../template/mail.template');
+const jwt = require('jsonwebtoken'); // TOKEN
+const { JWT_SECRET_KEY } = require('../config/token.config');
 
 authRoute.get('/users', (req, res) => {
     UserModel.find({})
@@ -15,7 +17,7 @@ authRoute.get('/users', (req, res) => {
         }
     })
     .catch((err) => {
-        console.log(err);
+        //console.log(err);
         res.status(415).send(err);
     })
 })
@@ -49,8 +51,12 @@ authRoute.post('/login', (req, res) => {
       if (!data.isActive) {
         return res.status(215).send('Not active user.')
       }
+
       // user exist in DB
-      res.status(200).send(data);
+      let token = jwt.sign({data}, JWT_SECRET_KEY); // TOKEN ******************************************************
+      //console.log(token);
+      data.password = null; // no send password
+      res.status(200).send({user: data, token: token});
     })
     .catch((err) => {
       console.log(err);

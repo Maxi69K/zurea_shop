@@ -10,7 +10,16 @@ import LoaderComponent from './components/loader/Loader.Component';
 import CookieNoticeComponent from './components/CookieNotice/CookieNotice.Component';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 axios.defaults.baseURL = 'http://localhost:5050/api';
+
+axios.interceptors.request.use((config) => {// TOKEN ************************************
+  //console.log('Axios Interceptor--->', config);
+  if (localStorage.hasOwnProperty('zu_token')) {
+    config.headers.Authorization = localStorage.getItem('zu_token');
+  }
+  return config;
+})
 
 function App() {
   

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginUser, setUserToLocalStorage } from '../../services/auth.service';
+import { loginUser, setTokenToLocalStorage, setUserToLocalStorage } from '../../services/auth.service';
 import { saveUser } from '../../redux/user.slicer';
 import { toast } from 'react-toastify';
 //import useLocalStorage from '../../hooks/useLocalStorage';
@@ -47,10 +47,11 @@ const LoginSectionComponent = () => {
         if (res.status === 215) {
           toast.error(res.data);
         } else {
-          setUserToLocalStorage(res.data);
+          setUserToLocalStorage(res.data.user);
+          setTokenToLocalStorage(res.data.token);
           //setLoggedUser(signInObj); // Set Local Storage from ../../hooks/useLocalStorage
-          dispatch(saveUser(res.data));
-          navigate(res.data.isAdmin ? '/dashboard' : '/');
+          dispatch(saveUser(res.data.user));
+          navigate(res.data.user.isAdmin ? '/dashboard' : '/');
         }
       })
       .catch((err) => {

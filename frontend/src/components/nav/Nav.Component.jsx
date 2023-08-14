@@ -42,7 +42,6 @@ const NavComponent = () => {
           id="navbarNav"
         >
           <ul className="navbar-nav">
-            
             <li className="nav-item">
               <NavBarLinkComponent btnTitle="Home" redirect="/" />
             </li>
@@ -74,6 +73,12 @@ const NavComponent = () => {
                   />
                 </li>
                 <li className="nav-item">
+                  <NavBarLinkComponent
+                    btnTitle="Checkout"
+                    redirect="/cartshop/checkout"
+                  />
+                </li>
+                <li className="nav-item">
                   <NavBarLinkComponent btnTitle="My profile" redirect="/user" />
                 </li>
               </>
@@ -100,7 +105,6 @@ const NavComponent = () => {
                 redirect="/login"
               />
             </li>
-
           </ul>
           <NavBarSearchComponent />
         </div>

@@ -15,6 +15,9 @@ import AdminPageComponent from '../pages/admin/AdminPage.Component';
 import UsersPageComponent from '../pages/admin/UsersPage.Component';
 import AdminGuardComponent from '../utils/AdminGuard.Component';
 import SingleUserPageComponent from '../pages/admin/SingleUserPage.Component';
+import CheckOutPageComponent from '../pages/CheckOutPage.Component';
+import PaymentPageComponent from '../pages/PaymentPage.Component';
+import OrderPageComponent from '../pages/OrderPage.Component';
 
 const routes = [
   {
@@ -98,11 +101,47 @@ const routes = [
       },
       {
         path: 'user/:id',
-        element: <AdminGuardComponent>
-          <SingleUserPageComponent />
-        </AdminGuardComponent>
+        element: (
+          <AdminGuardComponent>
+            <SingleUserPageComponent />
+          </AdminGuardComponent>
+        ),
+      },
+    ],
+  },
+  {
+    path: '/cartshop', //<CartShopPageComponent />
+    element: (
+      <AdminGuardComponent>
+        <CheckOutPageComponent />
+      </AdminGuardComponent>
+    ),
+    children: [
+      {
+        path: 'cart-product',
+        element: null, //<CartComponent />
+      },
+      {
+        path: 'checkout', //<CheckoutComponent />
+        element: (
+          <AdminGuardComponent>
+            <CheckOutPageComponent />
+          </AdminGuardComponent>
+        ),
+      },
+      {
+        path: 'payment',
+        element: <PaymentPageComponent />,
       }
     ],
+  },
+  {
+    path: '/order',
+    element: <OrderPageComponent />,
+  },
+  {
+    path: '/productDetails/:id',
+    element: null, //<ProductDetailComponent />
   },
 ];
 

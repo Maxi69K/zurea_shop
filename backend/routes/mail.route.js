@@ -11,6 +11,7 @@ mailRoute.post('/sendContact', (req, res) => {
 
   sendMail(email, subject, mailHtml)
     .then((result) => {
+      // TODO: add in emails DB
       res.send(`mail ${result.messageId} is send`);
     })
     .catch((err) => {

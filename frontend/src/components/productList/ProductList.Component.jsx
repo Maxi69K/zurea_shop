@@ -45,7 +45,10 @@ const ProductListComponent = () => {
         .catch((err) => {
           console.log(err);
           dispatch(toggleLoader(false));
-        });
+        })
+        .finally(() => {
+          dispatch(toggleLoader(false));
+        })
     }
     
   }, [params])

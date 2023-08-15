@@ -5,7 +5,6 @@ import TopTwoProductsComponent from '../components/topTwoProducts/TopTwoProducts
 import ModalComponents from '../components/modal/Modal.Components';
 import { useDispatch } from 'react-redux';
 import { toggleModal } from '../redux/modal.slicer';
-import ButtonComponent from '../components/button/Button.Component';
 
 const HomePageComponent = () => {
 

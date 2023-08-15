@@ -14,8 +14,8 @@ const ButtonComponent = ({btnText, btnClick, btnStyle}) => {
 export default ButtonComponent;
 
 // when called
-{/* <ButtonComponent
-  btnText={'Button'}
-  btnClick={() => dispatch(toggleModal(true))}
-  //btnStyle={{ background: 'red', color: 'white' }}
-/>; */}
+//   <ButtonComponent
+//   btnText={'Button'}
+//   btnClick={() => dispatch(toggleModal(true))}
+//   //btnStyle={{ background: 'red', color: 'white' }}
+//   />;

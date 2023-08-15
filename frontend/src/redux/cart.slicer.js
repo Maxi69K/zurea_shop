@@ -12,65 +12,51 @@ const cartSlice = createSlice({
         addToCart: (state, action) => {
             let copyArray = [...state.cart];
             let findIndex = null;
+            let product = action.payload;
             copyArray.find((el, index) => {
-                if (el._id === action.payload._id) {
-                    findIndex = index;
-                    return;
+                if (el._id === product._id) {
+                  findIndex = index;
+                  return;
                 }
             });
             if (findIndex === null) {
                 copyArray.push({
-                    ...action.payload,
-                    count: action.payload.count || 1,
-                    cartTotal:
-                        action.payload.price * action.payload.count ||
-                        action.payload.price * 1,
+                  ...product,
+                  count: product.count || 1,
+                  cartTotal: product.price * product.count || product.price * 1,
                 });
                 state.totalPrice +=
-                    action.payload.price * action.payload.count ||
-                    action.payload.price * 1;
+                  product.price * product.count || product.price * 1;
                     state.totalCount++;
             } else {
-                copyArray[findIndex].count += action.payload.count || 1;
+                copyArray[findIndex].count += product.count || 1;
                 copyArray[findIndex].cartTotal +=
-                    action.payload.price * action.payload.count ||
-                    action.payload.price * 1;
+                  product.price * product.count ||
+                  product.price * 1;
                 state.totalPrice +=
-                    action.payload.price * action.payload.count ||
-                    action.payload.price * 1;
+                    product.price * product.count ||
+                    product.price * 1;
             }
             state.cart = copyArray;
-
-            localStorage.setItem(
-                JSON.stringify({
-                    cart: state.cart,
-                    totalCount: state.totalCount,
-                    totalPrice: state.totalPrice,
-                })
-            );
+            cartSlice.caseReducers.updateLocalStorage(state);
         },
         restoreCart: (state, action) => {
-            state.cart = action.payload.cart;
-            state.totalPrice = action.payload.totalPrice;
-            state.totalCount = action.payload.totalCount;
+            let product = action.payload;
+            state.cart = product.cart;
+            state.totalPrice = product.totalPrice;
+            state.totalCount = product.totalCount;
         },
         deleteFromCart: (state, action) => {
-            let { id, index } = action.payload;
-            console.log(id, index);
+            let { id } = action.payload;
+            //console.log(id, index);
             let copyCart = [...state.cart];
 
-            copyCart.splice(index, 1);
             state.totalCount--;
-            state.cart = copyCart;
+            state.cart = copyCart.filter((el) => {
+                return el._id !== id;
+            })
             state.totalPrice = subTotal(copyCart);
-
-            localStorage.setItem(
-                JSON.stringify({
-                    cart: state.cart,
-                    totalPrice: state.totalPrice,
-                    totalCount: state.totalCount,
-                })
-            );
+            cartSlice.caseReducers.updateLocalStorage(state);
         },
         setPrice: (state, action) => {
             const { increment, index} = action.payload;
@@ -88,14 +74,20 @@ const cartSlice = createSlice({
             }
 
             state.cart = copyArray;
+            cartSlice.caseReducers.updateLocalStorage(state);
+        },
+
+        updateLocalStorage: (state) => {
             localStorage.setItem(
-            JSON.stringify({
-                cart: state.cart,
-                totalCount: state.totalCount,
-                totalPrice: state.totalPrice,
-            })
+                'cart',
+                JSON.stringify({
+                    cart: state.cart,
+                    totalCount: state.totalCount,
+                    totalPrice: state.totalPrice,
+                })
             );
         },
+
         setCustomer: (state, action) => {
             state.user = action.payload;
         }

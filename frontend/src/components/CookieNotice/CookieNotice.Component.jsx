@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import {getCookie, setCookie} from 'tiny-cookie';
 
+// for cookies
 const CookieNoticeComponent = () => {
     const [items, setItems] = useState({
         name: 'zureaCookie',

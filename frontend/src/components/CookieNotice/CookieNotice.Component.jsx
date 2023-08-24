@@ -45,10 +45,10 @@ const CookieNoticeComponent = () => {
                 {!zureaCookie && loading ? (<div className='cookie-notice-container'>
                     <div className='cookie-notice-wrapper'>
                         <div className='cookie-notice-content'>
-                            <p>We use cookies improve zour expirence on our website. By browsing this website,
+                            <p>We use cookies improve your experience on our website. By browsing this website,
                                 you agree to our use of cookies.</p>
                         </div>
-                        <div className='coocie-notice-btn-wrapper'>
+                        <div className='cookie-notice-btn-wrapper'>
                             <Link className='btn-terms'>Terms & Conditions </Link><br />
                             <Link className='btn-decline text-danger' onClick={declineCookie}>Decline &#10006;</Link><br />
                             <Link className='btn-accept text-success' onClick={acceptCookie}>Accept &#10004;</Link>
